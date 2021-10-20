@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+{% include 'partials/_preloader.html'%}
+{% include 'partials/_buscar.html' %}
+{% include 'partials/_header.html' %}
+
+<div class="contact-area section-padding-0-80">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="section-heading">
+                    <h2>Cadastro realizado com sucesso!</h2>
+                </div>
+            </div>
+        </div>
+        {% include 'partials/_alertas.html' %}
+        <div class="row">
+            <div class="col-12">
+                <div class="contact-form-area">
+                    <div>Nome: {{ form_user.first_name.value }}</div>
+                    <div>Sobrenome: {{ form_user.last_name.value }}</div>
+                    <div>CPF: {{ form_user.username.value }}</div>
+                    <div>E-mail: {{ form_user.email.value }}</div>
+                    <div>Sexo: {{ form_aluno.sexo.value }}</div>
+                    <div>Datado de nascimento: {{ form_aluno.data_nascimento.value }}</div>
+                    <div>Sexo: {{ form_aluno.sexo.value }}</div>
+                    <div>Telefone: {{ form_aluno.telefone.value }}</div>
+                    <div>Número do RG: {{ form_aluno.numero_rg.value }}</div>
+                    <div>UF de emissao RG: {{ form_aluno.uf_emissao_rg.value }}</div>
+                    <div>Data de expedicao: {{ form_aluno.data_expedicao.value }}</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% include 'partials/_footer.html' %}
+{% endblock %}

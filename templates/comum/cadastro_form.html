@@ -1,0 +1,72 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+{% load widget_tweaks %}
+{% include 'partials/_preloader.html'%}
+{% include 'partials/_buscar.html' %}
+{% include 'partials/_header.html' %}
+
+<!-- ##### Contact Form Area Start ##### -->
+<div class="contact-area section-padding-0-80">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="section-heading">
+                    <h2>Criar conta</h2>
+                </div>
+            </div>
+        </div>
+        {% include 'partials/_alertas.html' %}
+        <div class="row">
+            <div class="col-12 col-md-12">
+                <div class="contact-form-area">
+                    <form action="{% url 'confirma_cadastro_form'  %}" method="POST">
+                        {% csrf_token %}
+
+                        {% for field in form_user %}
+                        <div class="form-group">
+                            <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                            {{ field | add_class:'form-control' }}
+                        </div>
+                        {% for error in field.errors %}
+                        <section class="alert alert-danger">
+                            {{ field.errors }}
+                        </section>
+                        {% endfor %}
+                        {% endfor %}
+
+                        {% for field in form_aluno %}
+                        <div class="form-group">
+                            <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                            {{ field | add_class:'form-control' }}
+                        </div>
+                        {% for error in field.errors %}
+                        <section class="alert alert-danger">
+                            {{ field.errors }}
+                        </section>
+                        {% endfor %}
+                        {% endfor %}
+
+                        <!--<div class="form-group">
+                            <label for="senha"><b>Senha</b></label>
+                            <input type="password" class="form-control" name="senha" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="senha2"><b>Confirmação de senha</b></label>
+                            <input type="password" class="form-control" name="senha2" required>
+                        </div>-->
+
+                        <div class="col-12 col-lg-12 float-left">
+                            <input type="checkbox" class="checkbox-row" name="aceito" value="aceito" required>
+                            <label for="aceito">Aceito os <a href="#">termos de uso</a>.</label>
+                        </div>
+                        <input type="submit" value="Cadastrar" class="btn delicious-btn mt-30"></input>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% include 'partials/_footer.html' %}
+{% endblock %}

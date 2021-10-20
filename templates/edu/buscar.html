@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+{% include 'partials/_preloader.html' %}
+{% include 'partials/_buscar.html' %}
+{% include 'partials/_header.html' %}
+<section class="best-acad-area">
+    <div class="container">
+        {% if cursos %}
+        <div class="mb-30">
+            <h1>CURSOS ENCONTRADOS</h1>
+        </div>
+        <div class="row">
+            {% for curso in cursos %}
+            <div class="col-12 col-sm-6 col-lg-4">
+                <div class="single-best-acad-area mb-30 text-center">
+                    {% if curso.imagem_curso %}
+                        <img alt="" src="{{ curso.imagem_curso.url }}">
+                    {% else %}
+                        <img alt="" src="{% static 'img/bg-img/avatar.png' %}">
+                    {% endif %}
+                    <div class="text-dark font-bold mt-30 h5">
+                        {{ curso.codigo }} - {{ curso.descricao }}
+                    </div>
+                    <div class="mt-30">
+                        <a href="{% url 'curso' curso.id %}" type="button" class="btn delicious-btn">
+                            SAIBA MAIS
+                        </a>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        {% else %}
+        Nenhum Curso encontrado.
+        {% endif %}
+    </div>
+</section>
+{% include 'partials/_footer.html' %}
+{% endblock %}

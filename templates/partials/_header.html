@@ -1,0 +1,48 @@
+{% load static %}
+<header class="header-area">
+    <div class="delicious-main-menu">
+        <div class="classy-nav-container breakpoint-off">
+            <div class="container">
+                <nav class="classy-navbar justify-content-between" id="deliciousNav">
+                    <a class="nav-brand" href="{% url 'index' %}">
+                        <img alt="" src="{% static 'img/core-img/iflogo.png' %}"></a>
+                    <div class="classy-navbar-toggler">
+                        <span class="navbarToggler"><span></span><span></span><span></span></span>
+                    </div>
+                    <div class="classy-menu">
+                        <div class="classycloseIcon">
+                            <div class="cross-wrap"><span class="top"></span><span class="bottom"></span></div>
+                        </div>
+                        <div class="classynav">
+                            <ul>
+                                <li><a href="{% url 'index' %}">Início</a></li>
+                                {% if user.is_authenticated %}
+                                <li><a href="{% url 'dashboard' %}">Meus cursos</a></li>
+                                <li><a href="{% url 'perfil' %}">Meu perfil</a></li>
+                                <li><a href="{% url 'logout' %}">Logout</a></li>
+                                {% else %}
+                                <li><a href="{% url 'cadastro_form' %}">Cadastro</a></li>
+                                <li><a href="{% url 'login' %}">Login</a></li>
+                                {% endif %}
+                            </ul>
+                            <div class="search-btn">
+                                <i aria-hidden="true" class="fa fa-search"></i>
+                            </div>
+                        </div>
+                    </div>
+                </nav>
+            </div>
+        </div>
+    </div>
+    {% if user.is_authenticated %}
+    <div class="contact-area mb-30">
+        <div class="container">
+           <div class="row">
+               <div class="col-12">
+                   <span>Autenticado como <b>{{ user.first_name }}</b>.</span>
+               </div>
+           </div>
+        </div>
+    </div>
+    {% endif %}
+</header>

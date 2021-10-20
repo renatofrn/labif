@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+{% load widget_tweaks %}
+{% include 'partials/_preloader.html'%}
+{% include 'partials/_buscar.html'%}
+{% include 'partials/_header.html'%}
+
+<section class="container col-8">
+    {% include 'partials/_alertas.html' %}
+    <div class="row">
+        <div class="col-12 col-md-12">
+            <div class="contact-form-area">
+                <div class="acad-headline my-5">
+                <h2>Confirme seus dados para se matricular</h2>
+                <div class="acad-duration">
+                    <h6>Nome: {{ aluno.user.first_name }} {{ aluno.user.last_name }}</h6>
+                    <h6>Data de Nascimento: {{ aluno.data_nascimento | date:"m/d/Y" }}</h6>
+                    <h6>Sexo: {{ aluno.sexo }}</h6>
+                    <h6>Telefone: {{ aluno.telefone }}</h6>
+                </div>
+                <div class="form-group mt-30">Confirme seus dados para se matricular no curso <b>{{ curso.codigo }} - {{ curso.descricao }}</b>:</div>
+                <form action="{% url 'matricular_aluno' curso.id %}"  method="POST">
+                    {% csrf_token %}
+                    <div class="row">
+                        <div class="col-12 col-lg-12">
+                            <label for="observação">Caso tenha alguma observação a ser feita, insira abaxo:</label>
+                            <textarea class="form-control" name="observacao"></textarea>
+                        </div>
+                        <div class="col-12 col-lg-12 float-left">
+                            <input type="checkbox" class="checkbox-row" name="aceito" value="aceito" required>
+                            <label for="aceito">Aceito os <a href="#">termos de uso</a>.</label>
+                        </div>
+                       <div class="col-12 text-center">
+                           <button class="btn delicious-btn mt-30" type="submit">Efetivar Matrícula</button>
+                       </div>
+                    </div>
+                </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% include 'partials/_footer.html'%}
+{% endblock %}

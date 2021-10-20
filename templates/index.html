@@ -1,0 +1,77 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+{% include 'partials/_preloader.html' %}
+{% include 'partials/_buscar.html' %}
+{% include 'partials/_header.html' %}
+<section class="best-acad-area">
+    <div class="container">
+        {% if cursos %}
+        <div class="mb-30">
+            <h1>OFERTA DE CURSOS</h1>
+        </div>
+        <div class="row">
+            {% for curso in cursos %}
+            <div class="col-12 col-sm-6 col-lg-4">
+                <div class="single-best-acad-area mb-30 text-center">
+                    {% if curso.imagem_curso %}
+                        <img alt="" src="{{ curso.imagem_curso.url }}">
+                    {% else %}
+                        <img alt="" src="{% static 'img/bg-img/avatar.png' %}">
+                    {% endif %}
+                    <div class="text-dark font-bold mt-30 h5">
+                        {{ curso.codigo }} - {{ curso.descricao }}
+                    </div>
+                    <div class="mt-30">
+                        <a href="{% url 'curso' curso.id %}" type="button" class="btn delicious-btn">
+                            SAIBA MAIS
+                        </a>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        {% endif %}
+    </div>
+</section>
+
+<!-- PAGINAÇÃO -->
+<section class="top-catagory-area section-padding-20-0">
+    <div class="container">
+        {% if cursos.has_other_pages %}
+        <ul class="pagination">
+            {% if cursos.has_previous %}
+            <li class="page-item">
+                <a href="?page={{ cursos.previous_page_number }}" class="page-link">&laquo;</a>
+            </li>
+            {% else %}
+            <li class="page-item disabled">
+                <a class="page-link">&laquo;</a>
+            </li>
+            {% endif %}
+            {% for pagina in cursos.paginator.page_range %}
+            {% if cursos.number == pagina %}
+            <li class="page-item active">
+                <a class="page-link">{{ pagina }}</a>
+            </li>
+            {% else %}
+            <li class="page-item">
+                <a href="?page={{ pagina }}" class="page-link">{{ pagina }}</a>
+            </li>
+            {% endif %}
+            {% endfor %}
+            {% if cursos.has_next %}
+            <li class="page-item">
+                <a href="?page={{ cursos.next_page_number }}" class="page-link">&raquo;</a>
+            </li>
+            {% else %}
+            <li class="page-item disabled">
+                <a class="page-link">&raquo;</a>
+            </li>
+            {% endif %}
+        </ul>
+        {% endif %}
+    </div>
+</section>
+{% include 'partials/_footer.html' %}
+{% endblock %}

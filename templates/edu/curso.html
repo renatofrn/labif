@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+{% include 'partials/_preloader.html' %}
+{% include 'partials/_buscar.html' %}
+{% include 'partials/_header.html' %}
+
+<div class="acad-content-area">
+    <div class="container">
+        {% if curso.imagem_curso %}
+        <div class="row">
+            <div class="col-2">
+                <div class="circle-preloader">
+                    <img alt="" src="{{ curso.imagem_curso.url }}">
+                </div>
+            </div>
+        </div>
+        {% endif %}
+        <div class="row">
+            <div class="col-12 col-md-8">
+                <div class="acad-headline my-5">
+                    <h2>{{ curso.codigo }} - {{ curso.descricao }}</h2>
+                    <div class="acad-duration">
+                        <h6>Carga Horária: {{ curso.ch_total }} horas</h6>
+                        <h6>Hora/Aula: {{ curso.tipo_hora_aula }} minutos</h6>
+                        <h6>Periodicidade:
+                            {% if curso.periodicidade == 1 %} Anual {% endif %}
+                            {% if curso.periodicidade == 2 %} Semestral {% endif %}
+                            {% if curso.periodicidade == 3 %} Livre {% endif %}
+                        </h6>
+                        <h6>Média para aprovação: {{ curso.media_aprovacao }}</h6>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12 col-lg-4">
+                <div class="ingredients">
+                    <h4>Conteúdo do Curso</h4>
+                    <div class="ingredients">
+                        <p>
+                            {{ curso.conteudo }}
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div>
+            {% if matriculado %}
+            <div>
+            Parabéns! Você está matriculado neste curso. Caso queira de desmatricular, clique no botão abaixo:
+            </div>
+            <div class="mt-30">
+            <a href="{% url 'desmatricular_aluno' curso.id %}" type="button" class="btn btn-danger">Desmatricular</a>
+            </div>
+            {% else %}
+            <a href="{% url 'matricular_aluno' curso.id %}" type="button" class="btn delicious-btn mt-30">
+            ME MATRICULAR</a>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% include 'partials/_footer.html'%}
+{% endblock %}

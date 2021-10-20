@@ -1,0 +1,97 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+{% include 'partials/_preloader.html' %}
+{% include 'partials/_buscar.html' %}
+{% include 'partials/_header.html' %}
+
+<div class="container">
+    {% include 'partials/_alertas.html' %}
+    <div class="row">
+        <div class="col-2 mb-30">
+            <div class="circle-preloader">
+                {% if user.aluno.foto_aluno %}
+                    <img alt="Foto aluno" src="{{ user.aluno.foto_aluno.url }}">
+                {% else %}
+                    <img alt="Foto aluno" src="{% static 'img/bg-img/avatar.png' %}">
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+            <div class="contact-form-area">
+                <form action="{% url 'editar_perfil' %}"  method="POST">
+                    {% csrf_token %}
+                    <div class="row">
+                        <div class="col-12 col-lg-6">
+                           <label for="foto_aluno">Alterar sua foto</label>
+                           <input type="file" class="form-control" name="foto_aluno" id="foto_aluno">
+                       </div>
+                        <div class="col-12 col-lg-6">
+                            <label for="nome"><b>Nome</b></label>
+                            <input type="text" class="form-control" name="nome" id="nome" value="{{ user.first_name }}" required>
+                        </div>
+                        <div class="col-12 col-lg-6">
+                            <label for="sobrenome"><b>Sobrenome</b></label>
+                            <input type="text" class="form-control" name="sobrenome" id="sobrenome" value="{{ user.last_name }}" required>
+                        </div>
+                        <div class="col-12 col-lg-6">
+                            <label for="email"><b>Email</b></label>
+                            <input type="text" class="form-control" name="email" id="email" value="{{ user.email }}" required>
+                        </div>
+                        <div class="col-12 col-lg-6">
+                            <label for="telefone"><b>Telefone</b></label>
+                            <input type="text" class="form-control" name="telefone" id="telefone" value="{{ user.aluno.telefone }}">
+                        </div>
+                        <div class="col-12 col-lg-6">
+                            <label for="cpf"><b>CPF</b></label>
+                            <input type="text" class="form-control" name="cpf" id="cpf" value="{{ user.username }}" required>
+                        </div>
+                        <div class="col-12 col-lg-12">
+                            <label for="sexo"><b>Sexo</b></label>
+                            <select name="sexo" id="sexo">
+                              <option value="Masculino" {% if user.aluno.sexo. == 'Masculino' %}selected{% endif %}>Masculino</option>
+                              <option value="Feminino" {% if user.aluno.sexo == 'Feminino' %}selected{% endif %}>Feminino</option>
+                              <option value="Outro" {% if user.aluno.sexo == 'Outro' %}selected{% endif %}>Outro</option>
+                            </select>
+                        </div>
+                        <!--<div class="col-12 col-lg-6">
+                            <label for="data_nascimento"><b>Data de Nascimento</b></label>
+                            <input type="date" class="form-control" name="data_nascimento" id="data_nascimento" value="{{ user.aluno.data_nascimento | date:'d/m/Y' }}" required>
+                        </div>
+                        -->
+                        <div class="ol-12 col-lg-6">
+                            <button class="btn btn-info mt-30" type="submit">Salvar</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--
+<div class="acad-content-area">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 col-md-8">
+                <div class="acad-headline my-5">
+                    <h2>{{ user.first_name }} {{ user.last_name }}</h2>
+                    <div class="acad-duration">
+                        <h6>Sexo: {{ user.aluno.sexo }}</h6>
+                        <h6>CPF: {{ user.aluno.cpf }}</h6>
+                        <h6>Telefone: {{ user.aluno.telefone }}</h6>
+                        <h6>Data de Nascimento: {{ user.aluno.data_nascimento | date:"d/m/Y" }}</h6>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+-->
+{% include 'partials/_footer.html'%}
+{% endblock %}
